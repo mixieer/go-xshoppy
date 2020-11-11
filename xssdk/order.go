@@ -7,7 +7,7 @@ import (
 
 type OrderService interface {
 	List(listOptions interface{}) ([]Order, error)
-	Update(updateOptions interface{}) error
+	Update(updateOptions interface{}) (*CommonResponse, error)
 	Count(CountOptions interface{}) (int, error)
 }
 
@@ -96,10 +96,11 @@ func (xs *OrderServiceOp) List(options interface{}) ([]Order, error) {
 	return resource.Data.Data, err
 }
 
-func (xs *OrderServiceOp) Update(options interface{}) error {
+func (xs *OrderServiceOp) Update(options interface{}) (*CommonResponse, error) {
 	url := fmt.Sprintf("%v%v", HOST, "/order/orders/update")
-	err := xs.XsClient.Put(url, options, nil)
-	return err
+	resource := &CommonResponse{}
+	err := xs.XsClient.Put(url, options, resource)
+	return resource, err
 }
 
 func (xs *OrderServiceOp) Count(options interface{}) (int, error) {
