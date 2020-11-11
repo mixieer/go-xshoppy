@@ -3,7 +3,6 @@ package xssdk
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -112,7 +111,7 @@ func (xs *XsApiClient) Do(req *http.Request, v interface{}) error {
 	}
 	if v != nil {
 		body, _ := ioutil.ReadAll(resp.Body)
-		fmt.Println(string(body))
+		//fmt.Println(string(body))
 		b := bytes.NewReader(body)
 		decoder := json.NewDecoder(b)
 		err := decoder.Decode(&v)

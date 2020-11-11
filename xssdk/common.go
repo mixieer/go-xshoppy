@@ -30,12 +30,16 @@ const (
 	HOOK_SHOP_UPDATE     = "shop/update"
 )
 
-
-
 type App struct {
 	ApiKey       string
 	Password     string
 	SharedSecret string
+}
+
+type CommonResponse struct {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
 }
 
 //true 为空
@@ -336,7 +340,6 @@ func CheckResponseError(r *http.Response) error {
 	if xsError.Errors == nil {
 		return responseError
 	}
-
 
 	switch reflect.TypeOf(xsError.Errors).Kind() {
 	case reflect.String:
